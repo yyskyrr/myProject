@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {INCREASE, DECREASE, RESET} from './types';
+import {INCREASE, DECREASE} from './types';
 
 // 原始默认state
 const defaultState = {
@@ -13,8 +13,6 @@ function counter(state = defaultState, action) {
       return {...state, count: state.count + state.factor};
     case DECREASE:
       return {...state, count: state.count - state.factor};
-    case RESET:
-      return {...state, count: 0};
     default:
       return state;
   }

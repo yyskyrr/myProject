@@ -1,18 +1,14 @@
 import Tab from '../component/tab';
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {increase, decrease, reset} from '../store/actions';
+import {StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
+import {increase, decrease} from '../store/actions';
 
 class Index extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
     this.state = {};
-  }
-
-  _onPressReset() {
-    this.props.dispatch(reset());
   }
 
   _onPressInc() {
@@ -32,23 +28,45 @@ class Index extends React.Component {
           }}>
           首页
         </Text>
-        <Text>{this.props.counter.count}</Text>
-        <TouchableOpacity
-          style={styles.reset}
-          onPress={() => this._onPressReset()}>
-          <Text>归零</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.start}
-          onPress={() => this._onPressInc()}>
-          <Text>加1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.stop}
-          onPress={() => this._onPressDec()}>
-          <Text>减1</Text>
-        </TouchableOpacity>
-        <Tab props={this.props}></Tab>
+        <Text style={{fontSize: 18}}>{this.props.counter.count}</Text>
+
+        <Button title="加1" onPress={() => this._onPressInc()} />
+
+        <Button title="减1" onPress={() => this._onPressDec()} />
+
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'flex-end',
+            width: 375,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+          }}>
+          <View style={styles.btn}>
+            <Button
+              title="首页"
+              onPress={() => this.props.navigation.navigate('Index')}
+            />
+          </View>
+          <View style={styles.btn}>
+            <Button
+              title="我的"
+              onPress={() => this.props.navigation.navigate('Mine')}
+            />
+          </View>
+          <View style={styles.btn}>
+            <Button
+              title="商品列表"
+              onPress={() => this.props.navigation.navigate('GoodsList')}
+            />
+          </View>
+          <View style={styles.btn}>
+            <Button
+              title="商品详情"
+              onPress={() => this.props.navigation.navigate('GoodsDetail')}
+            />
+          </View>
+        </View>
       </View>
     );
   }
@@ -60,6 +78,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     alignItems: 'center',
+  },
+
+  btn: {
+    width: 80,
+    margin: 6,
   },
 
   content: {
