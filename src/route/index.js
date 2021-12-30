@@ -1,47 +1,29 @@
-import {createStackNavigator} from 'react-navigation-stack';
+import * as React from 'react';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {Text} from 'react-native';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 
-import {createAppContainer} from 'react-navigation';
-
-import Index from '../pages/index';
+import WebIndex from '../pages/index';
+import HomeTabs from './tabs';
 import Mine from '../pages/mine';
 import GoodsList from '../pages/goods-list';
 import GoodsDetail from '../pages/goods-detail';
-import Tab from '../component/tab';
 
-const getOption = () => ({
-  headerShown: false,
-});
-
-const Router = createStackNavigator(
-  {
-    Index: {
-      screen: Index,
-      navigationOptions: getOption(),
-    },
-    Tab: {
-      screen: Tab,
-      navigationOptions: getOption(),
-    },
-
-    Mine: {
-      screen: Mine,
-      navigationOptions: getOption(),
-    },
-
-    GoodsList: {
-      screen: GoodsList,
-      navigationOptions: getOption(),
-    },
-
-    GoodsDetail: {
-      screen: GoodsDetail,
-      navigationOptions: getOption(),
-    },
-  },
-
-  {
-    hearderBackTitleVisible: false,
-  },
-);
-
-export default createAppContainer(Router);
+const Stack = createStackNavigator();
+export default function MainContainer() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={() => ({
+            headerShown: true,
+            headerBackTitle: ' ',
+            title: '',
+          })}
+          name="Index"
+          component={HomeTabs}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
